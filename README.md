@@ -14,8 +14,8 @@ Folgende Properties stehen für den Request-Body zur Verfügung:
 
 Request Parameter            | Beschreibung | Anmerkungen
 -----------------------------|--------------|-------
-teilantragsnummer            | Kennung des Antrags auf der Europace2-Plattform | Pflichtangabe sofern keine  **produktanbieterantragsnummer** übermittelt wird.
-produktanbieterantragsnummer | Kennung des Antrags beim zuständigen Produktanbieter | Pflichtangabe sofern keine **teilantragsnummer** übermittelt wird.
+antragsnummer            | Kennung des Antrags auf der Europace2-Plattform | Pflichtangabe sofern keine  **produktanbieterantragsnummer** übermittelt wird.
+produktanbieterantragsnummer | Kennung des Antrags beim zuständigen Produktanbieter | Pflichtangabe sofern keine **antragsnummer** übermittelt wird.
 produktanbieterstatus        | Status des Antrags beim Produktanbieter | Optional. Erlaubte Werte sind: <ul><li><code>NICHT_BEARBEITET</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>ABGELEHNT</code></li><li><code>ZURUECKGESTELLT</code></li></ul>
 antragstellerstatus          | Status des Antrags beim Antragsteller | Optional. Erlaubte Werte sind: <ul><li><code>BEANTRAGT</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>NICHT_ANGENOMMEN</code></li><li><code>WIDERRUFEN</code></li></ul>
 kommentar                    | Kommentar zur Anzeige in der Benutzeroberfläche | Optional
@@ -55,13 +55,13 @@ Der Produktanbieterstatus für einen Antrag mit der Produktanbieterantragsnummer
 }
 ```
 
-#### Produktanbieterstatuswechsel mit Teilantragsnummer
+#### Produktanbieterstatuswechsel mit Antragsnummer
 
-Alternativ kann statt der Produktanbieterantragsnummer auch die Teilantragsnummer übergeben werden:
+Alternativ kann statt der Produktanbieterantragsnummer auch die Antragsnummer übergeben werden:
 
 ```json
 {
-  "teilantragsnummer": "985132/1/1",
+  "antragsnummer": "985132/1/1",
   "produktanbieterstatus": "UNTERSCHRIEBEN"
 }
 ```
