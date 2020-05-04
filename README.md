@@ -118,3 +118,5 @@ Bei Bedarf können auch beide Status gleichzeitig geändert werden:
   "antragstellerstatus": "UNTERSCHRIEBEN"
 }
 ```
+## Nutzungsbedingungen
+Die APIs werden unter folgenden [Nutzungsbedingungen](https://developer.europace.de/terms/) zur Verfügung gestellt.
