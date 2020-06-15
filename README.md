@@ -21,18 +21,36 @@ antragstellerstatus          | Status des Antrags beim Antragsteller | Optional.
 kommentar                    | Kommentar zur Anzeige in der Benutzeroberfläche | Optional
 hinweise                     | Liste von Hinweistexten zur Anzeige in der Benutzeroberfläche | Optional
 
-Die Authentifizierung erfolgt über einen per HTTP-Header übermittelten JWT-Voucher. Dieser muss berechtigt sein, den betroffenen Antrag zu modifizieren. Einen solchen JWT-Voucher bekommen Schnittstellenpartner von uns ausgestellt.
 
 Folgende HTTP-Header werden erwartet:
 
-Header Parameter | Beschreibung                                               | Anmerkungen
------------------|------------------------------------------------------------|-------------
-X-Authentication | JWT-Voucher mit Zugriffsrechten auf den betroffenen Antrag |
-Content-Type     | Content Type des Request Bodies                            | Muss derzeit immer `application/json` sein
+Header Parameter | Beschreibung                                               | Anmerkungen                                |
+-----------------|------------------------------------------------------------|--------------------------------------------|
+Content-Type     | Content Type des Request Bodies                            | Muss derzeit immer `application/json` sein |
 
 Im Erfolgsfall gibt die Schnittstelle HTTP-Status `200` zurück.
 
-### Beispiele
+## Authentifizierung
+
+Für jeden Request ist eine Authentifizierung erforderlich. Die Authentifizierung erfolgt über den OAuth 2.0 Client-Credentials Flow. 
+
+| Request Header Name | Beschreibung           |
+|---------------------|------------------------|
+| Authorization       | OAuth 2.0 Bearer Token |
+
+
+Das Bearer Token kann über die [Authorization-API](https://github.com/europace/authorization-api) angefordert werden. 
+Dazu wird ein Client benötigt, der vorher von einer berechtigten Person über das Partnermanagement angelegt wurde. 
+Eine Anleitung dafür befindet sich im [Help Center](https://europace2.zendesk.com/hc/de/articles/360012514780).
+
+Damit der Client für diese API genutzt werden kann, muss im Partnermanagement die Berechtigung **Kreditsmartanträge schreiben** aktiviert sein.  
+ 
+Schlägt die Authentifizierung fehl, erhält der Aufrufer eine HTTP Response mit Statuscode **401 UNAUTHORIZED**.
+
+Hat der Client keine Berechtigung die Resource abzurufen, erhält der Aufrufer eine HTTP Response mit Statuscode **403 FORBIDDEN**.
+
+
+## Beispiele
 
 Die hier gezeigten Beispiele können zum Testen per `curl` auf folgende Art nachvollzogen werden:
 
@@ -40,11 +58,11 @@ Die hier gezeigten Beispiele können zum Testen per `curl` auf folgende Art nach
 curl -v -XPOST https://www.europace2.de/kreditsmart/kex/antraege/status \
 	-H 'Accept: application/json' \
 	-H 'Content-Type: application/json' \
-	-H "X-Authentication: ${JWT_VOUCHER}" \
+	-H "Authorization: Bearer ${JWT_VOUCHER}" \
 	-d "${REQUEST_BODY}"
 ```
 
-#### Produktanbieterstatuswechsel mit Produktanbieterantragsnummer
+### Produktanbieterstatuswechsel mit Produktanbieterantragsnummer
 
 Der Produktanbieterstatus für einen Antrag mit der Produktanbieterantragsnummer `12919351` kann mit folgendem Request-Body auf `UNTERSCHRIEBEN` gesetzt werden:
 
@@ -55,7 +73,7 @@ Der Produktanbieterstatus für einen Antrag mit der Produktanbieterantragsnummer
 }
 ```
 
-#### Produktanbieterstatuswechsel mit Antragsnummer
+### Produktanbieterstatuswechsel mit Antragsnummer
 
 Alternativ kann statt der Produktanbieterantragsnummer auch die Antragsnummer übergeben werden:
 
@@ -66,7 +84,7 @@ Alternativ kann statt der Produktanbieterantragsnummer auch die Antragsnummer ü
 }
 ```
 
-#### Statuswechsel mit Kommentar
+### Statuswechsel mit Kommentar
 
 Der Statuswechsel kann darüber hinaus mit einem Kommentar versehen werden, der den Anwendern von **Kredit**Smart zusätzlich zum eigentlichen Statuswechsel angezeigt wird:
 
@@ -80,7 +98,7 @@ Der Statuswechsel kann darüber hinaus mit einem Kommentar versehen werden, der 
 
 Sollte der Produktanbieterstatus schon dem aktuellen Status entsprechen, wird der Kommentar dennoch dem Antrag hinzugefügt.
 
-#### Statuswechsel mit Kommentar und Hinweistexten
+### Statuswechsel mit Kommentar und Hinweistexten
 
 Es ist außerdem möglich, eine Liste von Hinweistexten hinzuzufügen, welche dann in **Kredit**Smart entsprechend dargestellt wird.
 
@@ -96,7 +114,7 @@ Es ist außerdem möglich, eine Liste von Hinweistexten hinzuzufügen, welche da
 }
 ```
 
-#### Antragstellerstatuswechsel
+### Antragstellerstatuswechsel
 
 Der Antragstellerstatuswechsel verhält sich analog zum Produktanbieterstatus:
 
@@ -107,7 +125,7 @@ Der Antragstellerstatuswechsel verhält sich analog zum Produktanbieterstatus:
 }
 ```
 
-#### Gleichzeitiger Wechsel von Produktanbieter- und Antragstellerstatus
+### Gleichzeitiger Wechsel von Produktanbieter- und Antragstellerstatus
 
 Bei Bedarf können auch beide Status gleichzeitig geändert werden:
 
@@ -118,5 +136,6 @@ Bei Bedarf können auch beide Status gleichzeitig geändert werden:
   "antragstellerstatus": "UNTERSCHRIEBEN"
 }
 ```
+
 ## Nutzungsbedingungen
 Die APIs werden unter folgenden [Nutzungsbedingungen](https://developer.europace.de/terms/) zur Verfügung gestellt.
