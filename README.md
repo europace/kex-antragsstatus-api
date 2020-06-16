@@ -66,7 +66,7 @@ Die hier gezeigten Beispiele können zum Testen per `curl` auf folgende Art nach
 curl -v -XPOST https://www.europace2.de/kreditsmart/kex/antraege/status \
 	-H 'Accept: application/json' \
 	-H 'Content-Type: application/json' \
-	-H "Authorization: Bearer ${JWT_VOUCHER}" \
+	-H "Authorization: Bearer ${TOKEN}" \
 	-d "${REQUEST_BODY}"
 ```
 
