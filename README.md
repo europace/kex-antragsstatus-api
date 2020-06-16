@@ -55,7 +55,7 @@ Damit der Client für diese API genutzt werden kann, muss im Partnermanagement d
  
 Schlägt die Authentifizierung fehl, erhält der Aufrufer eine HTTP Response mit Statuscode **401 UNAUTHORIZED**.
 
-Hat der Client keine Berechtigung die Resource abzurufen, erhält der Aufrufer eine HTTP Response mit Statuscode **403 FORBIDDEN**.
+Hat der Client keine Berechtigung die Resource abzurufen oder zu ändern, erhält der Aufrufer eine HTTP Response mit Statuscode **403 FORBIDDEN**.
 
 
 ## Beispiele
