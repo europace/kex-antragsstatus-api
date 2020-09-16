@@ -22,10 +22,10 @@ Folgende Properties stehen für den Request-Body zur Verfügung:
 
 Request Parameter            | Beschreibung | Anmerkungen
 -----------------------------|--------------|-------
-antragsnummer            | Kennung des Antrags auf der Europace2-Plattform | Pflichtangabe sofern keine  **produktanbieterantragsnummer** übermittelt wird.
-produktanbieterantragsnummer | Kennung des Antrags beim zuständigen Produktanbieter | Pflichtangabe sofern keine **antragsnummer** übermittelt wird.
-produktanbieterstatus        | Status des Antrags beim Produktanbieter | Optional. Erlaubte Werte sind: <ul><li><code>NICHT_BEARBEITET</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>ABGELEHNT</code></li><li><code>ZURUECKGESTELLT</code></li></ul>
-antragstellerstatus          | Status des Antrags beim Antragsteller | Optional. Erlaubte Werte sind: <ul><li><code>BEANTRAGT</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>NICHT_ANGENOMMEN</code></li><li><code>WIDERRUFEN</code></li></ul>
+antragsnummer                | Kennung des Antrags auf der Europace2-Plattform | Pflichtangabe, sofern keine **produktanbieterantragsnummer** übermittelt wird.
+produktanbieterantragsnummer | Kennung des Antrags beim zuständigen Produktanbieter | Pflichtangabe, sofern keine **antragsnummer** übermittelt wird.
+produktanbieterstatus        | Status des Antrags beim Produktanbieter | Pflichtangabe, sofern kein **antragstellerstatus** übermittelt wird. Erlaubte Werte sind: <ul><li><code>NICHT_BEARBEITET</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>ABGELEHNT</code></li><li><code>ZURUECKGESTELLT</code></li></ul>
+antragstellerstatus          | Status des Antrags beim Antragsteller | Pflichtangabe, sofern kein **produktanbieterstatus** übermittelt wird. Erlaubte Werte sind: <ul><li><code>BEANTRAGT</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>NICHT_ANGENOMMEN</code></li><li><code>WIDERRUFEN</code></li></ul>
 kommentar                    | Kommentar zur Anzeige in der Benutzeroberfläche | Optional
 hinweise                     | Liste von Hinweistexten zur Anzeige in der Benutzeroberfläche | Optional
 
