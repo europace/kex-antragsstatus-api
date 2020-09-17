@@ -40,19 +40,19 @@ Im Erfolgsfall gibt die Schnittstelle HTTP-Status `200` zurück.
 
 ## Authentifizierung
 
-Für jeden Request ist eine Authentifizierung erforderlich. Die Authentifizierung erfolgt über den OAuth 2.0 Client-Credentials Flow. 
+Für jeden Request ist eine Authentifizierung erforderlich. Die Authentifizierung erfolgt über den OAuth 2.0 Client-Credentials Flow.
 
 | Request Header Name | Beschreibung           |
 |---------------------|------------------------|
 | Authorization       | OAuth 2.0 Bearer Token |
 
 
-Das Bearer Token kann über die [Authorization-API](https://github.com/europace/authorization-api) angefordert werden. 
-Dazu wird ein Client benötigt, der vorher von einer berechtigten Person über das Partnermanagement angelegt wurde. 
+Das Bearer Token kann über die [Authorization-API](https://github.com/europace/authorization-api) angefordert werden.
+Dazu wird ein Client benötigt, der vorher von einer berechtigten Person über das Partnermanagement angelegt wurde.
 Eine Anleitung dafür befindet sich im [Help Center](https://europace2.zendesk.com/hc/de/articles/360012514780).
 
 Damit der Client für diese API genutzt werden kann, muss im Partnermanagement die Berechtigung **Kreditsmartanträge schreiben** aktiviert sein.  
- 
+
 Schlägt die Authentifizierung fehl, erhält der Aufrufer eine HTTP Response mit Statuscode **401 UNAUTHORIZED**.
 
 Hat der Client keine Berechtigung die Resource abzurufen oder zu ändern, erhält der Aufrufer eine HTTP Response mit Statuscode **403 FORBIDDEN**.
@@ -146,4 +146,4 @@ Bei Bedarf können auch beide Status gleichzeitig geändert werden:
 ```
 
 ## Nutzungsbedingungen
-Die APIs werden unter folgenden [Nutzungsbedingungen](https://developer.europace.de/terms/) zur Verfügung gestellt.
+Die APIs werden unter folgenden [Nutzungsbedingungen](https://docs.api.europace.de/nutzungsbedingungen/) zur Verfügung gestellt.
