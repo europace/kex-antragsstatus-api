@@ -51,7 +51,7 @@ Das Bearer Token kann über die [Authorization-API](https://docs.api.europace.de
 Dazu wird ein Client benötigt, der vorher von einer berechtigten Person über das Partnermanagement angelegt wurde.
 Eine Anleitung dafür befindet sich im [Help Center](https://europace2.zendesk.com/hc/de/articles/360012514780).
 
-Damit der Client für diese API genutzt werden kann, muss im Partnermanagement die Berechtigung **Kreditsmartanträge schreiben** aktiviert sein.  
+Damit der Client für diese API genutzt werden kann, muss im Partnermanagement die Berechtigung **Kreditsmartanträge schreiben** (Scope `privatkredit:antrag:schreiben`) aktiviert sein.  
 
 Schlägt die Authentifizierung fehl, erhält der Aufrufer eine HTTP Response mit Statuscode **401 UNAUTHORIZED**.
 
