@@ -6,14 +6,6 @@ Die Statuswechsel API für **Kredit**Smart-Anträge ist unter folgender URL erre
 https://www.europace2.de/kreditsmart/kex/antraege/status
 ```
 
-
-# Table of Contents
-
-* [Statuswechsel](#statuswechsel)
-* [Authentifizierung](#authentifizierung)
-* [Beispiele](#beispiele)
-* [Nutzungsbedingungen](#Nutzungsbedingungen)
-
 ## Statuswechsel
 
 Diese Schnittstelle ermöglicht es, den Status eines Antrags zu verändern oder den aktuellen Status um Zusatzinformationen zu ergänzen. Der Service erwartet einen `POST`-Request mit einem JSON-Dokument als Request-Body.
