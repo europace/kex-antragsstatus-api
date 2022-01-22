@@ -1,14 +1,31 @@
 # KEX-Antragsstatus-API
 
+> ⚠️ You'll find German domain-specific terms in the documentation, for translations and further explanations please refer to our [glossary](https://docs.api.europace.de/common/glossary/)
+
+## General
+
+This API makes it possible to change the status of an application or to add additional information to the current status. The service expects a `POST` request with a JSON-document as request body.
+
+> ⚠️ This API is continuously developed. Therefore we expect
+> all users to align with the "[Tolerant Reader Pattern](https://martinfowler.com/bliki/TolerantReader.html)", which requires clients to be
+> tolerant towards compatible API changes when reading and processing the data. This means:
+>
+> 1. unknown properties must not result in errors
+>
+> 2. Strings with a restricted set of values (Enums) must support new unknown values
+>
+> 3. sensible usage of HTTP status codes, even if they are not explicitly documented
+>
+
+<!-- https://opensource.zalando.com/restful-api-guidelines/#108 -->
+
+## Statuswechsel
+
 The Antragsstatus-API for **Kredit**Smart-Anträge can be accessed at the following URL:
 
 ```
 https://www.europace2.de/kreditsmart/kex/antraege/status
 ```
-
-## Statuswechsel
-
-This interface makes it possible to change the status of an application or to add additional information to the current status. The service expects a `POST` request with a JSON-document as request body.
 
 The following properties are available for the request-body:
 
