@@ -21,7 +21,7 @@ This API enables the user to change the status of an application or to add addit
 
 ## Statuswechsel
 
-The Antragsstatus-API for **Kredit**Smart-Anträge can be accessed at the following URL:
+The Antragsstatus-API for KreditSmart cases can be accessed at the following URL:
 
 ```
 https://www.europace2.de/kreditsmart/kex/antraege/status
@@ -53,7 +53,7 @@ An authentication is required for each request. This API is secured by the OAuth
 
 | Scope                          | Label in Partnermanagement            | Description                                                |
 |--------------------------------|---------------------------------------|------------------------------|
-| privatkredit:antrag:schreiben  | KreditSmart-Anträge anlegen/verändern | Scope for updating a Vorgang |
+| privatkredit:antrag:schreiben  | KreditSmart-Anträge anlegen/verändern | Scope for updating a case    |
 
 
 ## HTTP Status Errors
@@ -114,7 +114,7 @@ If the Produktanbieterstatus already corresponds to the current status, the comm
 
 ### Statuswechsel with comment and hints
 
-It is also possible to add a list of hints, which will then be displayed accordingly in **Kredit**Smart.
+It is also possible to add a list of hints, which will then be displayed accordingly in KreditSmart.
 
 ```json
 {
