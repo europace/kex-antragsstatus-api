@@ -1,58 +1,72 @@
 # KEX-Antragsstatus-API
 
-Die Statuswechsel API für **Kredit**Smart-Anträge ist unter folgender URL erreichbar:
+> ⚠️ You'll find German domain-specific terms in the documentation, for translations and further explanations please refer to our [glossary](https://docs.api.europace.de/common/glossary/)
+
+## General
+
+This API enables the user to change the status of an application or to add additional information to the current status. The service expects a `POST` request with a JSON document as request body.
+
+> ⚠️ This API is continuously developed. Therefore we expect
+> all users to align with the "[Tolerant Reader Pattern](https://martinfowler.com/bliki/TolerantReader.html)", which requires clients to be
+> tolerant towards compatible API changes when reading and processing the data. This means:
+>
+> 1. unknown properties must not result in errors
+>
+> 2. Strings with a restricted set of values (Enums) must support new unknown values
+>
+> 3. sensible usage of HTTP status codes, even if they are not explicitly documented
+>
+
+<!-- https://opensource.zalando.com/restful-api-guidelines/#108 -->
+
+## Statuswechsel
+
+The Antragsstatus-API for KreditSmart cases can be accessed at the following URL:
 
 ```
 https://www.europace2.de/kreditsmart/kex/antraege/status
 ```
 
-## Statuswechsel
+The following properties are available for the request body:
 
-Diese Schnittstelle ermöglicht es, den Status eines Antrags zu verändern oder den aktuellen Status um Zusatzinformationen zu ergänzen. Der Service erwartet einen `POST`-Request mit einem JSON-Dokument als Request-Body.
-
-Folgende Properties stehen für den Request-Body zur Verfügung:
-
-Request Parameter            | Beschreibung | Anmerkungen
------------------------------|--------------|-------
-antragsnummer                | Kennung des Antrags auf der Europace2-Plattform | Pflichtangabe, sofern keine **produktanbieterantragsnummer** übermittelt wird.
-produktanbieterantragsnummer | Kennung des Antrags beim zuständigen Produktanbieter | Pflichtangabe, sofern keine **antragsnummer** übermittelt wird.
-produktanbieterstatus        | Status des Antrags beim Produktanbieter | Pflichtangabe, sofern kein **antragstellerstatus** übermittelt wird. Erlaubte Werte sind: <ul><li><code>NICHT_BEARBEITET</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>ABGELEHNT</code></li><li><code>ZURUECKGESTELLT</code></li></ul>
-antragstellerstatus          | Status des Antrags beim Antragsteller | Pflichtangabe, sofern kein **produktanbieterstatus** übermittelt wird. Erlaubte Werte sind: <ul><li><code>BEANTRAGT</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>NICHT_ANGENOMMEN</code></li><li><code>WIDERRUFEN</code></li></ul>
-kommentar                    | Kommentar zur Anzeige in der Benutzeroberfläche | Optional
-hinweise                     | Liste von Hinweistexten zur Anzeige in der Benutzeroberfläche | Optional
+Request parameter            | Description | Comment
+-----------------------------|-------------|--------
+antragsnummer                | Identifier of the application on the Europace2 platform| Mandatory if no **produktanbieterantragsnummer** is submitted.
+produktanbieterantragsnummer | Identifier of the application to the relevant Produktanbieter | Mandatory if no **antragsnummer** is submitted.
+produktanbieterstatus        | Status of the application with the Produktanbieter | Mandatory, if no **antragstellerstatus** is submitted. Allowed values are: <ul><li><code>NICHT_BEARBEITET</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>ABGELEHNT</code></li><li><code>ZURUECKGESTELLT</code></li></ul>
+antragstellerstatus          | Status of the application with the Antragsteller | Mandatory, if no **produktanbieterstatus** is submitted. Allowed values are: <ul><li><code>BEANTRAGT</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>NICHT_ANGENOMMEN</code></li><li><code>WIDERRUFEN</code></li></ul>
+kommentar                    | Comment, that can be displayed in the GUI | Optional
+hinweise                     | List of hint texts, that can be displayed in the GUI | Optional
 
 
-Folgende HTTP-Header werden erwartet:
+The following HTTP headers will be expected:
 
-Header Parameter | Beschreibung                                               | Anmerkungen                                |
------------------|------------------------------------------------------------|--------------------------------------------|
-Content-Type     | Content Type des Request Bodies                            | Muss derzeit immer `application/json` sein |
+Header Parameter | Description                                               | Comment                              |
+-----------------|-----------------------------------------------------------|--------------------------------------|
+Content-Type     | Content type of the request body                          | Always has to be `application/json` |
 
-Im Erfolgsfall gibt die Schnittstelle HTTP-Status `200` zurück.
+In case of success the API will respond with a HTTP status `200`.
 
-## Authentifizierung
+## Authentication
 
-Für jeden Request ist eine Authentifizierung erforderlich. Die Authentifizierung erfolgt über den OAuth 2.0 Client-Credentials Flow.
+An authentication is required for each request. This API is secured by the OAuth 2.0 client credentials flow using the [Authorization-API](https://docs.api.europace.de/privatkredit/authentifizierung/). To use these APIs your OAuth2-Client needs the following scopes:
 
-| Request Header Name | Beschreibung           |
-|---------------------|------------------------|
-| Authorization       | OAuth 2.0 Bearer Token |
-
-
-Das Bearer Token kann über die [Authorization-API](https://docs.api.europace.de/privatkredit/authentifizierung/) angefordert werden.
-Dazu wird ein Client benötigt, der vorher von einer berechtigten Person über das Partnermanagement angelegt wurde.
-Eine Anleitung dafür befindet sich im [Help Center](https://europace2.zendesk.com/hc/de/articles/360012514780).
-
-Damit der Client für diese API genutzt werden kann, muss im Partnermanagement die Berechtigung **KreditSmart-Anträge anlegen/verändern** (Scope `privatkredit:antrag:schreiben`) aktiviert sein.  
-
-Schlägt die Authentifizierung fehl, erhält der Aufrufer eine HTTP Response mit Statuscode **401 UNAUTHORIZED**.
-
-Hat der Client keine Berechtigung die Resource abzurufen oder zu ändern, erhält der Aufrufer eine HTTP Response mit Statuscode **403 FORBIDDEN**.
+| Scope                          | Label in Partnermanagement            | Description                                                |
+|--------------------------------|---------------------------------------|------------------------------|
+| privatkredit:antrag:schreiben  | KreditSmart-Anträge anlegen/verändern | Scope for updating a case    |
 
 
-## Beispiele
+## HTTP Status Errors
 
-Die hier gezeigten Beispiele können zum Testen per `curl` auf folgende Art nachvollzogen werden:
+| Error Code | Message               | Description                     |
+|------------|-----------------------|---------------------------------|
+| 401        | Unauthorized          | Authentication failed           |
+| 403        | Forbidden             | The API client misses a scope   |
+
+
+## Examples
+
+The examples shown here can be used for testing by `curl` in the following way:
 
 ```sh
 curl -v -XPOST https://www.europace2.de/kreditsmart/kex/antraege/status \
@@ -62,9 +76,9 @@ curl -v -XPOST https://www.europace2.de/kreditsmart/kex/antraege/status \
 	-d "${REQUEST_BODY}"
 ```
 
-### Produktanbieterstatuswechsel mit Produktanbieterantragsnummer
+### Produktanbieterstatuswechsel with Produktanbieterantragsnummer
 
-Der Produktanbieterstatus für einen Antrag mit der Produktanbieterantragsnummer `12919351` kann mit folgendem Request-Body auf `UNTERSCHRIEBEN` gesetzt werden:
+The Produktanbieterstatus for an application with the Produktanbieterantragsnummer `12919351` can be set to `UNTERSCHRIEBEN` with the following request-body:
 
 ```json
 {
@@ -73,9 +87,9 @@ Der Produktanbieterstatus für einen Antrag mit der Produktanbieterantragsnummer
 }
 ```
 
-### Produktanbieterstatuswechsel mit Antragsnummer
+### Produktanbieterstatuswechsel with Antragsnummer
 
-Alternativ kann statt der Produktanbieterantragsnummer auch die Antragsnummer übergeben werden:
+Alternatively, the Antragsnummer can be transferred instead of the Produktanbieterantragsnummer:
 
 ```json
 {
@@ -84,9 +98,9 @@ Alternativ kann statt der Produktanbieterantragsnummer auch die Antragsnummer ü
 }
 ```
 
-### Statuswechsel mit Kommentar
+### Statuswechsel with comment
 
-Der Statuswechsel kann darüber hinaus mit einem Kommentar versehen werden, der den Anwendern von **Kredit**Smart zusätzlich zum eigentlichen Statuswechsel angezeigt wird:
+Furthermore, the status change can also contain a comment which is displayed to the users of **Kredit**Smart in addition to the actual status change:
 
 ```json
 {
@@ -96,11 +110,11 @@ Der Statuswechsel kann darüber hinaus mit einem Kommentar versehen werden, der 
 }
 ```
 
-Sollte der Produktanbieterstatus schon dem aktuellen Status entsprechen, wird der Kommentar dennoch dem Antrag hinzugefügt.
+If the Produktanbieterstatus already corresponds to the current status, the comment will still be added to the application.
 
-### Statuswechsel mit Kommentar und Hinweistexten
+### Statuswechsel with comment and hints
 
-Es ist außerdem möglich, eine Liste von Hinweistexten hinzuzufügen, welche dann in **Kredit**Smart entsprechend dargestellt wird.
+It is also possible to add a list of hints, which will then be displayed accordingly in KreditSmart.
 
 ```json
 {
@@ -116,7 +130,7 @@ Es ist außerdem möglich, eine Liste von Hinweistexten hinzuzufügen, welche da
 
 ### Antragstellerstatuswechsel
 
-Der Antragstellerstatuswechsel verhält sich analog zum Produktanbieterstatus:
+The Antragstellerstatuswechsel behaves analogous to the Produktanbieterstatus:
 
 ```json
 {
@@ -125,9 +139,9 @@ Der Antragstellerstatuswechsel verhält sich analog zum Produktanbieterstatus:
 }
 ```
 
-### Gleichzeitiger Wechsel von Produktanbieter- und Antragstellerstatus
+### Simultaneous change of Produktanbieter- and Antragstellerstatus
 
-Bei Bedarf können auch beide Status gleichzeitig geändert werden:
+If necessary, both statuses can be changed at the same time:
 
 ```json
 {
@@ -137,5 +151,5 @@ Bei Bedarf können auch beide Status gleichzeitig geändert werden:
 }
 ```
 
-## Nutzungsbedingungen
-Die APIs werden unter folgenden [Nutzungsbedingungen](https://docs.api.europace.de/nutzungsbedingungen/) zur Verfügung gestellt.
+## Terms of use
+The APIs are made available under the following [Terms of Use](https://docs.api.europace.de/terms/).
