@@ -4,7 +4,7 @@
 
 ## General
 
-This API makes it possible to change the status of an application or to add additional information to the current status. The service expects a `POST` request with a JSON-document as request body.
+This API enables the user to change the status of an application or to add additional information to the current status. The service expects a `POST` request with a JSON document as request body.
 
 > ⚠️ This API is continuously developed. Therefore we expect
 > all users to align with the "[Tolerant Reader Pattern](https://martinfowler.com/bliki/TolerantReader.html)", which requires clients to be
@@ -27,7 +27,7 @@ The Antragsstatus-API for **Kredit**Smart-Anträge can be accessed at the follow
 https://www.europace2.de/kreditsmart/kex/antraege/status
 ```
 
-The following properties are available for the request-body:
+The following properties are available for the request body:
 
 Request parameter            | Description | Comment
 -----------------------------|-------------|--------
@@ -39,13 +39,13 @@ kommentar                    | Comment, that can be displayed in the GUI | Optio
 hinweise                     | List of hint texts, that can be displayed in the GUI | Optional
 
 
-The following HTTP-headers will be expected:
+The following HTTP headers will be expected:
 
 Header Parameter | Description                                               | Comment                              |
 -----------------|-----------------------------------------------------------|--------------------------------------|
-Content-Type     | Content type of the request body                          | Always need to be `application/json` |
+Content-Type     | Content type of the request body                          | Always has to be `application/json` |
 
-In case of success the interface will respond with a HTTP-status `200`.
+In case of success the API will respond with a HTTP status `200`.
 
 ## Authentication
 
@@ -55,9 +55,8 @@ An authentication is required for each request. This API is secured by the OAuth
 |--------------------------------|---------------------------------------|------------------------------|
 | privatkredit:antrag:schreiben  | KreditSmart-Anträge anlegen/verändern | Scope for updating a Vorgang |
 
-To request a bearer token via Authorization-API, this requires a client that has previously been created by an authorised person via Partnermanagement. For further details check out our [Help Center](https://europace2.zendesk.com/hc/de/articles/360012514780).
 
-## HTTP-Status Errors
+## HTTP Status Errors
 
 | Error Code | Message               | Description                     |
 |------------|-----------------------|---------------------------------|
@@ -101,7 +100,7 @@ Alternatively, the Antragsnummer can be transferred instead of the Produktanbiet
 
 ### Statuswechsel with comment
 
-Furthermore, the status change can be provided with a comment which is displayed to the users of **Kredit**Smart in addition to the actual status change:
+Furthermore, the status change can also contain a comment which is displayed to the users of **Kredit**Smart in addition to the actual status change:
 
 ```json
 {
@@ -113,9 +112,9 @@ Furthermore, the status change can be provided with a comment which is displayed
 
 If the Produktanbieterstatus already corresponds to the current status, the comment will still be added to the application.
 
-### Statuswechsel with comment and hint texts
+### Statuswechsel with comment and hints
 
-It is also possible to add a list of hint texts, which will then be displayed accordingly in **Kredit**Smart.
+It is also possible to add a list of hints, which will then be displayed accordingly in **Kredit**Smart.
 
 ```json
 {
