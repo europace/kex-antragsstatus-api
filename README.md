@@ -29,40 +29,38 @@ https://www.europace2.de/kreditsmart/kex/antraege/status
 
 The following properties are available for the request body:
 
-Request parameter            | Description | Comment
------------------------------|-------------|--------
-antragsnummer                | Identifier of the application on the Europace2 platform| Mandatory if no **produktanbieterantragsnummer** is submitted.
-produktanbieterantragsnummer | Identifier of the application to the relevant Produktanbieter | Mandatory if no **antragsnummer** is submitted.
-produktanbieterstatus        | Status of the application with the Produktanbieter | Mandatory, if no **antragstellerstatus** is submitted. Allowed values are: <ul><li><code>NICHT_BEARBEITET</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>ABGELEHNT</code></li><li><code>ZURUECKGESTELLT</code></li></ul>
-antragstellerstatus          | Status of the application with the Antragsteller | Mandatory, if no **produktanbieterstatus** is submitted. Allowed values are: <ul><li><code>BEANTRAGT</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>NICHT_ANGENOMMEN</code></li><li><code>WIDERRUFEN</code></li></ul>
-kommentar                    | Comment, that can be displayed in the GUI | Optional
-hinweise                     | List of hint texts, that can be displayed in the GUI | Optional
-
+ Request parameter            | Description                                                   | Comment                                                                                                                                                                                                                            
+------------------------------|---------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ antragsnummer                | Identifier of the application on the Europace2 platform       | Mandatory, if no **produktanbieterantragsnummer** is submitted.                                                                                                                                                                     
+ produktanbieterantragsnummer | Identifier of the application to the relevant Produktanbieter | Mandatory, if no **antragsnummer** is submitted.                                                                                                                                                                                    
+ produktanbieterstatus        | Status of the application with the Produktanbieter            | Optional, allowed values are: <ul><li><code>NICHT_BEARBEITET</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>ABGELEHNT</code></li><li><code>ZURUECKGESTELLT</code></li></ul> 
+ antragstellerstatus          | Status of the application with the Antragsteller              | Optional, allowed values are: <ul><li><code>BEANTRAGT</code></li><li><code>UNTERSCHRIEBEN</code></li><li><code>NICHT_ANGENOMMEN</code></li><li><code>WIDERRUFEN</code></li></ul>    
+ kommentar                    | Comment, that can be displayed in the GUI                     | Optional                                                                                                                                                                                                                           
+ hinweise                     | List of hint texts, that can be displayed in the GUI          | Optional                                                                                                                                                                                                                           
 
 The following HTTP headers will be expected:
 
-Header Parameter | Description                                               | Comment                              |
------------------|-----------------------------------------------------------|--------------------------------------|
-Content-Type     | Content type of the request body                          | Always has to be `application/json` |
+ Header Parameter | Description                      | Comment                             |
+------------------|----------------------------------|-------------------------------------|
+ Content-Type     | Content type of the request body | Always has to be `application/json` |
 
 In case of success the API will respond with a HTTP status `200`.
 
 ## Authentication
 
-An authentication is required for each request. This API is secured by the OAuth 2.0 client credentials flow using the [Authorization-API](https://docs.api.europace.de/privatkredit/authentifizierung/). To use these APIs your OAuth2-Client needs the following scopes:
+An authentication is required for each request. This API is secured by the OAuth 2.0 client credentials flow using
+the [Authorization-API](https://docs.api.europace.de/privatkredit/authentifizierung/). To use these APIs your OAuth2-Client needs the following scopes:
 
-| Scope                          | Label in Partnermanagement            | Description                                                |
-|--------------------------------|---------------------------------------|------------------------------|
-| privatkredit:antrag:schreiben  | KreditSmart-Anträge anlegen/verändern | Scope for updating a case    |
-
+| Scope                         | Label in Partnermanagement            | Description               |
+|-------------------------------|---------------------------------------|---------------------------|
+| privatkredit:antrag:schreiben | KreditSmart-Anträge anlegen/verändern | Scope for updating a case |
 
 ## HTTP Status Errors
 
-| Error Code | Message               | Description                     |
-|------------|-----------------------|---------------------------------|
-| 401        | Unauthorized          | Authentication failed           |
-| 403        | Forbidden             | The API client misses a scope   |
-
+| Error Code | Message      | Description                   |
+|------------|--------------|-------------------------------|
+| 401        | Unauthorized | Authentication failed         |
+| 403        | Forbidden    | The API client misses a scope |
 
 ## Examples
 
@@ -122,8 +120,8 @@ It is also possible to add a list of hints, which will then be displayed accordi
   "produktanbieterstatus": "ZURUECKGESTELLT",
   "kommentar": "Bitte reichen Sie noch folgende Dokumente nach:",
   "hinweise": [
-  	"Personalausweis",
-  	"Geburtsurkunde"
+    "Personalausweis",
+    "Geburtsurkunde"
   ]
 }
 ```
@@ -152,4 +150,5 @@ If necessary, both statuses can be changed at the same time:
 ```
 
 ## Terms of use
+
 The APIs are made available under the following [Terms of Use](https://docs.api.europace.de/terms/).
