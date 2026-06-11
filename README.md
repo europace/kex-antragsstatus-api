@@ -49,7 +49,7 @@ In case of success the API will respond with a HTTP status `200`.
 ## Authentication
 
 An authentication is required for each request. This API is secured by the OAuth 2.0 client credentials flow using
-the [Authorization-API](https://docs.api.europace.de/privatkredit/authentifizierung/). To use these APIs your OAuth2-Client needs the following scopes:
+the [Authorization-API](https://docs.api.europace.de/common/authentication/authorization-api/). To use these APIs your OAuth2-Client needs the following scopes:
 
 | Scope                         | Label in Partnermanagement            | Description               |
 |-------------------------------|---------------------------------------|---------------------------|
